@@ -45,6 +45,6 @@ This project is licensed under the terms of the MIT license.
 
 ## Author
 
-Tony DeRosia - For any inquiries or support, please contact [Your Contact Information].
+Tony DeRosia - For any inquiries or support, please visit: https://linktr.ee/tony_brutal
 
 Enjoy creating stunning clothing models in Blender with ease!
