@@ -49,10 +49,10 @@ class ApplyModifiers(bpy.types.Operator):
 class ClothingModifierPanel(bpy.types.Panel):
     """Creates a Panel for Clothing Modifiers"""
     bl_label = "Clothing Modifier"
-    bl_idname = "SCENE_PT_clothing_modifier"
-    bl_space_type = 'PROPERTIES'
-    bl_region_type = 'WINDOW'
-    bl_context = "scene"
+    bl_idname = "SCENE_PT_clothing_modifier_2"  # Changed to a unique identifier
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'UI'
+    bl_category = "Clothing Mods"
 
     def draw(self, context):
         layout = self.layout
