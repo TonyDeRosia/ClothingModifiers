@@ -1,6 +1,8 @@
 # ClothingModifiers
 Blender clothing modifiers addon to make creating clothing items a bit quicker in blender.
 
+Adds a section under the scene tab as well as the N toolbar.
+
 # Clothing Modifiers Addon for Blender
 
 The Clothing Modifiers addon is designed to simplify the workflow for creating clothing in Blender. With a focus on efficiency and ease of use, this addon allows 3D artists and fashion designers to quickly add a predefined set of modifiers that are commonly used in clothing simulation and design.
