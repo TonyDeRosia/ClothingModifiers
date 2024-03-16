@@ -1,3 +1,12 @@
+bl_info = {
+    "name": "Clothing Modifiers",
+    "author": "Tony DeRosia",
+    "version": (1, 0),
+    "blender": (4, 0, 0),
+    "description": "Adds and applies clothing modifiers for optimized clothing creation",
+    "category": "Object",
+}
+
 import bpy
 
 class AddClothingModifiers(bpy.types.Operator):
@@ -46,7 +55,6 @@ class ApplyModifiers(bpy.types.Operator):
             
         return {'FINISHED'}
 
-
 class ClothingModifierPanel(bpy.types.Panel):
     """Creates a Panel for Clothing Modifiers"""
     bl_label = "Clothing Modifier"
@@ -60,12 +68,27 @@ class ClothingModifierPanel(bpy.types.Panel):
         layout.operator(AddClothingModifiers.bl_idname)
         layout.operator(ApplyModifiers.bl_idname)
 
+class ClothingModifierPanelNToolbar(bpy.types.Panel):
+    """Creates a Panel for Clothing Modifiers in the N toolbar"""
+    bl_label = "Clothing Modifier"
+    bl_idname = "VIEW3D_PT_clothing_modifier"
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'UI'
+    bl_category = "Clothing Mod"  # Change this to your desired tab name
+
+    def draw(self, context):
+        layout = self.layout
+        layout.operator("object.add_clothing_modifiers")
+        layout.operator("object.apply_modifiers")
+
 def register():
     bpy.utils.register_class(AddClothingModifiers)
     bpy.utils.register_class(ApplyModifiers)
     bpy.utils.register_class(ClothingModifierPanel)
+    bpy.utils.register_class(ClothingModifierPanelNToolbar)
 
 def unregister():
+    bpy.utils.unregister_class(ClothingModifierPanelNToolbar)
     bpy.utils.unregister_class(ClothingModifierPanel)
     bpy.utils.unregister_class(ApplyModifiers)
     bpy.utils.unregister_class(AddClothingModifiers)
