@@ -1,12 +1,3 @@
-bl_info = {
-    "name": "Clothing Modifiers",
-    "author": "Tony DeRosia",
-    "version": (1, 0),
-    "blender": (4, 0, 2),
-    "description": "Adds and applies clothing modifiers. Use at your own risk!",
-    "category": "Object",
-}
-
 import bpy
 
 class AddClothingModifiers(bpy.types.Operator):
@@ -35,24 +26,34 @@ class AddClothingModifiers(bpy.types.Operator):
         return {'FINISHED'}
 
 class ApplyModifiers(bpy.types.Operator):
-    """Apply all modifiers to the selected object"""
+    """Apply all enabled modifiers to the selected object"""
     bl_idname = "object.apply_modifiers"
     bl_label = "Apply Modifiers"
 
     def execute(self, context):
         obj = context.active_object
         if obj is not None and obj.type == 'MESH':
-            for modifier in obj.modifiers:
-                bpy.ops.object.modifier_apply(modifier=modifier.name)
+            # Get the evaluated object with all modifiers applied
+            depsgraph = context.evaluated_depsgraph_get()
+            evaluated_obj = obj.evaluated_get(depsgraph)
+
+            # Create a new mesh from the evaluated object
+            new_mesh = bpy.data.meshes.new_from_object(evaluated_obj)
+
+            # Assign the new mesh to the original object
+            obj.modifiers.clear()
+            obj.data = new_mesh
+            
         return {'FINISHED'}
+
 
 class ClothingModifierPanel(bpy.types.Panel):
     """Creates a Panel for Clothing Modifiers"""
     bl_label = "Clothing Modifier"
-    bl_idname = "SCENE_PT_clothing_modifier_2"  # Changed to a unique identifier
-    bl_space_type = 'VIEW_3D'
-    bl_region_type = 'UI'
-    bl_category = "Clothing Mods"
+    bl_idname = "SCENE_PT_clothing_modifier"
+    bl_space_type = 'PROPERTIES'
+    bl_region_type = 'WINDOW'
+    bl_context = "scene"
 
     def draw(self, context):
         layout = self.layout
